@@ -1,0 +1,15 @@
+version: '3'
+services:
+  php:
+    image: php:8.2
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html:cached
+    ports:
+      - "8080:8080"
+    command: php -S 0.0.0.0:8080
+  composer:
+    image: composer:2.6
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html:cached

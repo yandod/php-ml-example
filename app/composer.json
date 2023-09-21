@@ -1,0 +1,12 @@
+{
+    "name": "yandod/php-ml-example",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Yandod\\PhpMlExample\\": "src/"
+        }
+    },
+    "require": {
+        "rubix/ml": "^2.4"
+    }
+}
