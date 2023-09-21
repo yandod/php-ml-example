@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+mt_srand(123);
 
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Regressors\MLPRegressor;
@@ -47,7 +48,7 @@ $estimator = new MLPRegressor([
     new Activation(new ReLU()),
     new Dense(64),
     new Activation(new ReLU()),
-], 100, new Adam(0.001));
+], 190, new Adam(0.001));
 
 $estimator->train($dataset);
 
