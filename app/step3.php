@@ -20,15 +20,19 @@ function fetch_data() {
     return $dataSet;
 }
 
+function predict($weights, $horsepower) {
+    return $weights[0] * $horsepower + $weights[1];
+}
+
 function gradient_decent($dataSet) {
     // データセットからhorsepowerとmpgを取得
     $horsepower = array_column($dataSet, 'Horsepower');
     $mpg = array_column($dataSet, 'MPG');
 
-    // パラメータ設定
-    $initial_learning_rate = 0.00001; // 初期の学習率を大きく設定
+    // ハイパーパラメータ設定
+    $initial_learning_rate = 0.000045; // 初期の学習率を大きく設定
     $final_learning_rate = 0.0000001; // 最終的な学習率
-    $epochs = 15000;
+    $epochs = 3000;
     $weights = [0, 0];
 
     for ($epoch = 0; $epoch < $epochs; $epoch++) {
@@ -39,12 +43,12 @@ function gradient_decent($dataSet) {
         $total_mae = 0;
 
         for ($i = 0; $i < count($horsepower); $i++) {
-            $predicted = $weights[0] * $horsepower[$i] + $weights[1];
+            $predicted = predict($weights, $horsepower[$i]); //推論
             $error = $mpg[$i] - $predicted;
             $total_mse += $error * $error; // 二乗誤差の合計を計算
             $total_mae += abs($error); // 絶対誤差の合計を計算
 
-            // MSEの勾配を計算
+            // 重みを更新
             $weights[0] -= $learning_rate * (-2 * $horsepower[$i] * $error);
             $weights[1] -= $learning_rate * (-2 * $error);
         }
@@ -58,6 +62,7 @@ function gradient_decent($dataSet) {
     return [
         'slope' => $weights[0],
         'intercept' => $weights[1],
+        'weights' => $weights,
         'mse' => $mse,
         'mae' => $mae,
     ];
@@ -67,7 +72,6 @@ $dataSet = fetch_data();
 $regression = gradient_decent($dataSet);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
