@@ -145,5 +145,6 @@ $mae = array_sum($absoluteErrors) / count($absoluteErrors);
 </script>
 <p>Mean Squared Error: <?php echo $mse; ?></p>
 <p>Mean Absolute Error: <?php echo $mae; ?></p>
+<p>Model Parameters: <?php echo $estimator->network()->numParams(); ?></p>
 </body>
 </html>
