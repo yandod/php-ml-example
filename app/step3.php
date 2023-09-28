@@ -20,27 +20,7 @@ function fetch_data() {
     return $dataSet;
 }
 
-function linear_regression($dataSet) {
-    $n = count($dataSet);
-    $sum_x = 0;
-    $sum_y = 0;
-    $sum_x_squared = 0;
-    $sum_xy = 0;
-
-    foreach ($dataSet as $data) {
-        $sum_x += $data['Horsepower'];
-        $sum_y += $data['MPG'];
-        $sum_x_squared += $data['Horsepower'] * $data['Horsepower'];
-        $sum_xy += $data['Horsepower'] * $data['MPG'];
-    }
-
-    $m = ($n * $sum_xy - $sum_x * $sum_y) / ($n * $sum_x_squared - $sum_x * $sum_x);
-    $b = ($sum_y - $m * $sum_x) / $n;
-
-    return ['slope' => $m, 'intercept' => $b];
-}
-
-function neural_network($dataSet) {
+function gradient_decent($dataSet) {
     // データセットからhorsepowerとmpgを取得
     $horsepower = array_column($dataSet, 'Horsepower');
     $mpg = array_column($dataSet, 'MPG');
@@ -56,16 +36,20 @@ function neural_network($dataSet) {
         $learning_rate = $initial_learning_rate - ($initial_learning_rate - $final_learning_rate) * ($epoch / $epochs);
 
         $total_mse = 0; // MSE計算のための合計エラー
+        $total_mae = 0;
+
         for ($i = 0; $i < count($horsepower); $i++) {
             $predicted = $weights[0] * $horsepower[$i] + $weights[1];
             $error = $mpg[$i] - $predicted;
             $total_mse += $error * $error; // 二乗誤差の合計を計算
+            $total_mae += abs($error); // 絶対誤差の合計を計算
 
             // MSEの勾配を計算
             $weights[0] -= $learning_rate * (-2 * $horsepower[$i] * $error);
             $weights[1] -= $learning_rate * (-2 * $error);
         }
         $mse = $total_mse / count($horsepower); // 平均二乗誤差を計算
+        $mae = $total_mae / count($horsepower); // 平均絶対誤差を計算
 
         // 必要に応じて各エポックのMSEと学習率を表示
         // echo "Epoch {$epoch}: MSE = {$mse}, Learning rate = {$learning_rate}\n";
@@ -73,12 +57,14 @@ function neural_network($dataSet) {
 
     return [
         'slope' => $weights[0],
-        'intercept' => $weights[1]
+        'intercept' => $weights[1],
+        'mse' => $mse,
+        'mae' => $mae,
     ];
 }
 
 $dataSet = fetch_data();
-$regression = neural_network($dataSet);
+$regression = gradient_decent($dataSet);
 
 ?>
 
@@ -150,5 +136,9 @@ $regression = neural_network($dataSet);
     myChart.update();
 </script>
 
+Slope: <?php echo $regression['slope']; ?><br>
+Intercept: <?php echo $regression['intercept']; ?><br>
+MSE: <?php echo $regression['mse'] ?><br>
+MAE: <?php echo $regression['mae'] ?>
 </body>
 </html>

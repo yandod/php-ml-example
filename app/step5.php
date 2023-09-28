@@ -10,6 +10,8 @@ use Rubix\ML\NeuralNet\ActivationFunctions\ReLU;
 use Rubix\ML\NeuralNet\Optimizers\Adam;
 use Rubix\ML\Datasets\Unlabeled;
 
+
+
 function fetch_data() {
     $url = "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data";
     $data = file_get_contents($url);
@@ -62,6 +64,25 @@ for ($hp = 1; $hp <= 250; $hp++) {
     $predictions[$hp] = $predictedValue[0];
 }
 
+$predictedValues = [];
+foreach ($samples as $sample) {
+    $predictedValue = $estimator->predict(new Unlabeled([$sample]));
+    $predictedValues[] = $predictedValue[0];
+}
+
+// Calculate MSE
+$squaredErrors = [];
+foreach ($labels as $index => $actual) {
+    $squaredErrors[] = ($predictedValues[$index] - $actual) ** 2;
+}
+$mse = array_sum($squaredErrors) / count($squaredErrors);
+
+// Calculate MAE
+$absoluteErrors = [];
+foreach ($labels as $index => $actual) {
+    $absoluteErrors[] = abs($predictedValues[$index] - $actual);
+}
+$mae = array_sum($absoluteErrors) / count($absoluteErrors);
 
 ?>
 <!DOCTYPE html>
@@ -122,5 +143,7 @@ for ($hp = 1; $hp <= 250; $hp++) {
         }
     });
 </script>
+<p>Mean Squared Error: <?php echo $mse; ?></p>
+<p>Mean Absolute Error: <?php echo $mae; ?></p>
 </body>
 </html>

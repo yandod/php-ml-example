@@ -113,5 +113,8 @@ $regression = linear_regression($dataSet);
     myChart.update();
 </script>
 
+
+Slope: <?php echo $regression['slope']; ?><br>
+Intercept: <?php echo $regression['intercept']; ?>
 </body>
 </html>
