@@ -24,5 +24,5 @@ docker compose up
 
 # ローカルで実行できるように同梱したデータ
 
-- auto-mpg.data by UC Irvine Machine Learning Library [[original](https://archive.ics.uci.edu/dataset/9/auto+mpg)]
+- auto-mpg.data by R. Quinlan [[original](https://archive.ics.uci.edu/dataset/9/auto+mpg)]
 - [chart.js](https://www.chartjs.org/)
