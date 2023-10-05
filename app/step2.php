@@ -1,6 +1,6 @@
 <?php
 function fetch_data() {
-    $url = "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data";
+    $url = "auto-mpg.data";
     $data = file_get_contents($url);
     $lines = explode("\n", trim($data));
 
@@ -51,7 +51,7 @@ $regression = linear_regression($dataSet);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Line Chart using PHP and Chart.js</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./chart.js"></script>
 </head>
 <body>
 
