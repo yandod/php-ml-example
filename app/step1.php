@@ -46,7 +46,7 @@ $dataSet = fetch_data();
                 label: 'MPG by Horsepower',
                 data: dataSet.map(data => ({x: data.Horsepower, y: data.MPG})),
                 borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: 'rgba(75, 192, 192, 0.9)',
             }]
         },
         options: {

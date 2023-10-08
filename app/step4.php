@@ -98,7 +98,7 @@ for ($hp = 1; $hp <= 250; $hp++) {
                     label: 'Actual MPG',
                     data: actualData.x.map((value, index) => ({x: value, y: actualData.y[index]})),
                     borderColor: 'red',
-                    backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                    backgroundColor: 'rgba(255, 0, 0, 0.9)',
                     pointRadius: 3,
                     fill: false
                 }
