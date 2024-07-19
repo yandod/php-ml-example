@@ -4,6 +4,8 @@ PHPで機械学習の基礎、勾配降下法を体験する為のサンプル�
 
 題材はTensorFlowの[線形回帰のチュートリアル](https://www.tensorflow.org/tutorials/keras/regression?hl=ja)をPHPで進める形なっています。
 
+[PHPカンファレンス2023での講演動画はこちら](https://www.youtube.com/watch?v=eycJXBrrT9g)
+
 # 使い方
 - 起動
 ```
